@@ -26,13 +26,6 @@ jobs:
       run: |
         semgrep scan --config auto --json --output reports/semgrep.json
 
-    - name: Install Gitleaks from source
+    - name: Run Gitleaks via Docker
       run: |
-        sudo apt-get update
-        sudo apt-get install -y golang
-        go install github.com/gitleaks/gitleaks/v8@latest
-        echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-
-    - name: Run Gitleaks
-      run: |
-        gitleaks detect --report-format json --report-path reports/gitleaks.json
+        docker run --rm -v ${{ github.workspace }}:/repo zricethezav/gitleaks:latest detect --source=/repo --report-format=json --report-path=/repo/reports/gitleaks.json
