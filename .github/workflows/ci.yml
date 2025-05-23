@@ -34,13 +34,13 @@ jobs:
       continue-on-error: true
       run: |
         tfsec terraform --format json --out=reports/tfsec.json
+        
     - name: Set up Terraform
       run: |
-        sudo rm -rf /usr/local/bin/terraform
         sudo apt-get update && sudo apt-get install -y unzip
         curl -fsSL https://releases.hashicorp.com/terraform/1.8.2/terraform_1.8.2_linux_amd64.zip -o terraform.zip
-        unzip terraform.zip
-        sudo mv terraform /usr/local/bin/terraform
+        unzip terraform.zip -d tfbin
+        sudo mv tfbin/terraform /usr/local/bin/terraform
 
     - name: Terraform Init
       working-directory: terraform
