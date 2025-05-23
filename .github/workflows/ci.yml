@@ -38,8 +38,8 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y unzip
         curl -fsSL https://releases.hashicorp.com/terraform/1.8.2/terraform_1.8.2_linux_amd64.zip -o terraform.zip
-        unzip terraform.zip
-        sudo mv terraform /usr/local/bin/
+        unzip -o terraform.zip
+        sudo mv -f terraform /usr/local/bin/terraform
 
     - name: Terraform Init
       working-directory: terraform
