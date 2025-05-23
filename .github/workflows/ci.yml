@@ -25,6 +25,14 @@ jobs:
     - name: Run Semgrep
       run: |
         semgrep scan --config auto --json --output reports/semgrep.json
+    
+    - name: Install tfsec
+      run: |
+        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+
+    - name: Run tfsec
+      run: |
+        tfsec terraform --format json --out=reports/tfsec.json
 
     - name: Run Gitleaks via Docker
       run: |
